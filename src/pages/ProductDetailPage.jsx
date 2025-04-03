@@ -6,7 +6,7 @@ const ProductDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { products } = useProductStore();
-    const product = products.find(p => p.id == id);
+    const product = products.find(p => p.id === id);
 
     if (!product) return <h2>Product not found</h2>;
 
