@@ -1,39 +1,26 @@
-import { useContext, useState } from "react";
-import { ProductContext } from "../context/ProductContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import useProductStore from '../store/productStore';
+import { useNavigate } from 'react-router-dom';
 
 const CreateProductPage = () => {
-    const { addProduct } = useContext(ProductContext);
+    const { addProduct } = useProductStore();
     const navigate = useNavigate();
-
-    const [product, setProduct] = useState({
-        name: "",
-        description: "",
-        image: "",
-    });
-
-    const handleChange = (e) => {
-        setProduct({ ...product, [e.target.name]: e.target.value });
-    };
+    const [form, setForm] = useState({ title: '', description: '', image: '' });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!product.name || !product.description || !product.image) {
-            alert("Заполните все поля!");
-            return;
-        }
-        addProduct(product);
-        navigate("/products");
+        addProduct({ ...form, id: Date.now(), liked: false });
+        navigate('/products');
     };
 
     return (
-        <div>
-            <h2>Добавить продукт</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="name" placeholder="Название" value={product.name} onChange={handleChange} />
-                <input type="text" name="description" placeholder="Описание" value={product.description} onChange={handleChange} />
-                <input type="text" name="image" placeholder="Ссылка на изображение" value={product.image} onChange={handleChange} />
-                <button type="submit">Добавить</button>
+        <div className="container">
+            <h1>Create Product</h1>
+            <form className="form" onSubmit={handleSubmit}>
+                <input type="text" placeholder="Title" required onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                <textarea placeholder="Description" required onChange={(e) => setForm({ ...form, description: e.target.value })}></textarea>
+                <input type="text" placeholder="Image URL" required onChange={(e) => setForm({ ...form, image: e.target.value })} />
+                <button className="primary" type="submit">Create</button>
             </form>
         </div>
     );
