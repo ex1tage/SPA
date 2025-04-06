@@ -3,7 +3,7 @@ import { FaHeart, FaTrash } from 'react-icons/fa';
 import useProductStore from '../store/productStore';
 import '../styles/ProductCard.css';
 import { useNavigate } from 'react-router-dom';
-import type { Product } from '../store/productStore'; // импортируем тип
+import type { Product } from '../store/productStore';
 
 interface ProductCardProps {
     product: Product;
@@ -33,6 +33,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         removeProduct(product.id);
                     }}
                 />
+                <button
+                    className="edit-btn"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/products/${product.id}/edit`);
+                    }}
+                >
+                    Edit
+                </button>
             </div>
         </div>
     );

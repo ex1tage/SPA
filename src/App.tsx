@@ -3,15 +3,19 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import CreateProductPage from './pages/CreateProductPage';
+import EditProductPage from './pages/EditProductPage';
 
-const App: React.FC = () => (
-    <Routes>
-        <Route path="/" element={<Navigate to="/products" replace />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:id" element={<ProductDetailPage />} />
-        <Route path="/create-product" element={<CreateProductPage />} />
-        <Route path="*" element={<h1>404 Not Found</h1>} />
-    </Routes>
-);
+const App = () => {
+        return (
+            <Routes>
+                    <Route path="/" element={<ProductsPage />} />
+                    <Route path="/products" element={<ProductsPage />} />
+                    <Route path="/products/:id" element={<ProductDetailPage />} />
+                    <Route path="/products/:id/edit" element={<EditProductPage />} />
+                    <Route path="/create-product" element={<CreateProductPage />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+        );
+};
 
 export default App;
